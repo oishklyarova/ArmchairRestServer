@@ -7,14 +7,7 @@ namespace Armchair_rest_server.Models
 {
     public class LikedRepository : ILikedRepository
     {
-        private static LikedRepository repo = new LikedRepository();
-
         private ArmchairDB context = new ArmchairDB();
-
-        public static ILikedRepository getRepository()
-        {
-            return repo;
-        }
 
         public IQueryable<Liked> GetAll(string userName)
         {

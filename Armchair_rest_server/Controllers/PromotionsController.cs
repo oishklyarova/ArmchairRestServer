@@ -10,7 +10,13 @@ namespace Armchair_rest_server.Controllers
 {
     public class PromotionsController : ApiController
     {
-        private IPromotionRepository repo = PromotionRepository.getRepository();
+        private IPromotionRepository repo;
+
+        public PromotionsController(IPromotionRepository promotionRepository)
+        {
+            this.repo = promotionRepository;
+        }
+
         // GET api/promotion
         public IEnumerable<Promotion> GetAllPromotions()
         {

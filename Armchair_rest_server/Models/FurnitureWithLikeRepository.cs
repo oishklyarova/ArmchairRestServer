@@ -7,14 +7,7 @@ namespace Armchair_rest_server.Models
 {
     public class FurnitureWithLikeRepository : IFurnitureWithLikeRepository
     {
-        private static FurnitureWithLikeRepository repo = new FurnitureWithLikeRepository();
-
         private ArmchairDB context = new ArmchairDB();
-
-        public static IFurnitureWithLikeRepository getRepository()
-        {
-            return repo;
-        }
 
         public IQueryable<FurnitureWithLike> GetAll(string userName)
         {

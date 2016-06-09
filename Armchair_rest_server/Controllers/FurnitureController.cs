@@ -10,13 +10,18 @@ namespace Armchair_rest_server.Controllers
 {
     public class FurnitureController : ApiController
     {
-        private IFurnitureRepository repo = FurnitureRepository.getRepository();
+        private IFurnitureRepository repo;
         public int pageSize = 18;
+
+        public FurnitureController(IFurnitureRepository furnitureRepository)
+        {
+            this.repo = furnitureRepository;
+        }
 
         // GET api/furniture
         public IEnumerable<Furniture> GetAllFurniture(int page = 0)
         {
-            return repo.GetAll().Skip(page*pageSize).Take(pageSize);
+            return repo.GetAll().Skip(page * pageSize).Take(pageSize).ToList();
         }
 
         // GET api/furniture/5

@@ -8,14 +8,7 @@ namespace Armchair_rest_server.Models
 {
     public class FeedbackRepository : IFeedbackRepository
     {
-        private static IFeedbackRepository repo = new FeedbackRepository();
-
         private ArmchairDB context = new ArmchairDB();
-
-        public static IFeedbackRepository getRepository()
-        {
-            return repo;
-        }
 
         public IEnumerable<Feedback> GetAll()
         {

@@ -6,7 +6,13 @@ using System.Web.Http;
 using Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
+using Ninject;
+using Ninject.Web.Common.OwinHost;
+using Ninject.Web.WebApi.OwinHost;
+using System.Reflection;
+using System.Web.Mvc;
 using Armchair_rest_server.Providers;
+using Armchair_rest_server.Infrastructure;
 
 [assembly: OwinStartup(typeof(Armchair_rest_server.Startup))]
 namespace Armchair_rest_server
@@ -19,7 +25,9 @@ namespace Armchair_rest_server
             HttpConfiguration config = new HttpConfiguration();
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            app.UseWebApi(config);
+            //app.UseWebApi(config);
+            app.UseNinjectMiddleware(CreateKernel);
+            app.UseNinjectWebApi(config);
         }
 
         public void ConfigureOAuth(IAppBuilder app)
@@ -36,6 +44,16 @@ namespace Armchair_rest_server
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
+        }
+
+        private static StandardKernel CreateKernel()
+        {
+            var kernel = new StandardKernel();
+            kernel.Load(Assembly.GetExecutingAssembly());
+
+            ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory(kernel));
+
+            return kernel;
         }
     }
 

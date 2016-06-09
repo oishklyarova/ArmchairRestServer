@@ -10,8 +10,13 @@ namespace Armchair_rest_server.Controllers
 {
     public class FurnitureWithLikeController : ApiController
     {
-        private IFurnitureWithLikeRepository repo = FurnitureWithLikeRepository.getRepository();
+        private IFurnitureWithLikeRepository repo;
         public int pageSize = 18;
+
+        public FurnitureWithLikeController(IFurnitureWithLikeRepository furnitureWithLikeRepository)
+        {
+            this.repo = furnitureWithLikeRepository;
+        }
 
         // GET api/furniturewithlike
         public IQueryable<FurnitureWithLike> GetAll(string userName = null, int page = 0)

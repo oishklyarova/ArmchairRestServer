@@ -10,7 +10,12 @@ namespace Armchair_rest_server.Controllers
 {
     public class LikedController : ApiController
     {
-        private ILikedRepository repo = LikedRepository.getRepository();
+        private ILikedRepository repo;
+
+        public LikedController(ILikedRepository likedRepository)
+        {
+            this.repo = likedRepository;
+        }
 
         // GET api/liked
         [Authorize]

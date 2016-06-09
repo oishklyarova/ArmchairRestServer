@@ -8,9 +8,14 @@ using Armchair_rest_server.Models;
 
 namespace Armchair_rest_server.Controllers
 {
-    public class FeedbackController : ApiController
+    public class FeedbacksController : ApiController
     {
-        private IFeedbackRepository repo = FeedbackRepository.getRepository();
+        private IFeedbackRepository repo;
+
+        public FeedbacksController(IFeedbackRepository feedbackRepository)
+        {
+            this.repo = feedbackRepository;
+        }
 
         // GET api/feedback
         public IEnumerable<Feedback> GetAllFeedbacks()
